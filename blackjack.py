@@ -1,22 +1,102 @@
+import random
+
+suits = [ "Hearts", "Diamonds", "Spades", "Clubs" ]
+values = {  "Two": 2, 
+            "Three": 3, 
+            "Four": 4, 
+            "Five": 5, 
+            "Six": 6, 
+            "Seven": 7, 
+            "Eight": 8, 
+            "Nine": 9, 
+            "Ten": 10, 
+            "Jack": 10, 
+            "Queen": 10, 
+            "King": 10, 
+            "Ace": 11 
+        }
+
 class Card:
-    #The init constructor should accept the card suit, and the cards value 
+    def __init__(self, suit, value):
+        self.suit = suit
+        self.value = value
     
-    #Create a constructor to return the string representation of your card. 
+    def __repr__(self):
+        return self.value + " of " + self.suit
 
 class Deck:
-    #The init contructor should create a deck of cards, using our card class
+    def __init__(self):
+        self.deck = []
 
-    #To make sure everything is fair, Mr. Black needs a way to shuffle the deck
+        for suit in suits:
+            for value in values:
+                self.deck.append(Card(suit, value))
+
+    def shuffleDeck(self):
+        random.shuffle(self.deck)
+
+    def dealCard(self):
+        return self.deck.pop()
     
-    #As the dealer, Mr. Black needs to be able to deal cards to players
+class Player:
+    def __init__(self):
+        self.hand = []
+        self.handValue = 0
+        self.ace = 0
 
-class Hand:
-    #Lets initiate the hand here. Dont forget to account for the dealer
-        
-    #The Reset of the class functions are up to you!
+    def addCard(self, card):
+        self.card = card
+        self.hand.append(self.card)
+        return self.scoreboard()
 
+    def scoreboard(self):
+        self.handValue += values[self.card.value]
+        if "Ace" in str(self.card):
+            self.ace += 1
+
+        if self.handValue > 21 and self.ace > 0:
+            self.handValue -= 10
+            self.ace -= 1
+
+        return self.handValue
+
+
+    #needs dealt card
+    #hit vs stay logic
+    
 class Moola:
-    #Jack like the stakes to be high. He doesnt play without betting, and you gotta play until someone loses it all....Good luck
+    def __init__(self, bet):
+        self.amount = 35000
+        self.bet = bet
+
+    def addMoola(self):
+        return self.amount + self.bet
+    
+    def subtractMoola(self):
+        return self.amount - self.bet
 
 
 #GAME LOGIC GOES HERE. You could use a class, but lets work out the logic first. 
+
+#ourDeck = Deck()
+#ourDeck.shuffleDeck()
+#ourCard = ourDeck.dealCard()
+#us = Player()
+#print(us.addCard(ourCard))
+#ourCard = ourDeck.dealCard()
+#print(us.addCard(ourCard))
+#ourCard = ourDeck.dealCard()
+#print(us.addCard(ourCard))
+#ourCard = ourDeck.dealCard()
+#ourCard = ourDeck.dealCard()
+#ourCard = ourDeck.dealCard()
+#ourCard = ourDeck.dealCard()
+#print(us.addCard(ourCard))
+#print(us.addCard(ourCard))
+#print(us.addCard(ourCard))
+#print(us.addCard(ourCard))
+bank = Moola(5500)
+
+print(bank.subtractMoola())
+
+
