@@ -65,20 +65,136 @@ class Player:
     #hit vs stay logic
     
 class Moola:
-    def __init__(self, bet):
-        self.amount = 35000
+    def __init__(self, amount = 35000):
+        self.amount = amount
+
+    def addMoola(self, bet):
         self.bet = bet
-
-    def addMoola(self):
-        return self.amount + self.bet
+        self.amount += self.bet
     
-    def subtractMoola(self):
-        return self.amount - self.bet
-
+    def subtractMoola(self, bet):
+        self.bet = bet
+        self.amount -= self.bet
 
 #GAME LOGIC GOES HERE. You could use a class, but lets work out the logic first. 
+def gameIntro():
+    playGame = input("Hello sirs and or madames, Im Jack Black, the famous actor. I am also a world class Black Jack dealer. Do you want to play a game?(Enter 'yes' to play): ").lower()
+    if playGame == "yes":
+        return True
+
+    print("Enter 'yes' to play")
+    return False
+
+
+#THE MAIN GAME
+def jackblacksblackjack():
+    if gameIntro():
+        print("Starting Game!")
+    else:
+        return print("You're boring, you didnt want to play")
+
+    playerMoney = Moola()
+
+    while playerMoney.amount > 0 and playerMoney.amount <= 100000:
+        print("Place your bet, you currently have $" + str(playerMoney.amount))
+
+        #Make sure only positive integers and make sure bet is not larger than bank amount
+        playerBet = int(input("What is your bet?: "))
+        if playerBet > playerMoney.amount and playerBet >= 0:
+            print(f"Cant bet more that {playerMoney.amount} and has to be greater than 0")
+            continue
+
+        deck = Deck()
+        deck.shuffleDeck()
+
+        playerHand = Player()
+        dealerHand = Player()
+
+        playerHand.addCard(deck.dealCard())
+        dealerHand.addCard(deck.dealCard())
+        playerHand.addCard(deck.dealCard())
+        dealerHand.addCard(deck.dealCard())
+        
+        print(f"The Dealer has a {dealerHand.hand[0]} showing")
+        
+        if dealerHand.handValue == 21:
+            print("Jack Black has BLACKJACK!!!!")
+            playerMoney.subtractMoola(playerBet)
+            continue
+
+        if playerHand.handValue == 21:
+            print("Player Wins, BLACKJACK!!!!")
+            playerMoney.addMoola(playerBet)
+            continue
+
+        while True:
+            if playerHand.handValue == 21:
+                print("Player Wins, BLACKJACK!!!!")
+                playerMoney.addMoola(playerBet)
+                break
+
+            print("Your have the following cards")
+            for card in playerHand.hand:
+                print(card)
+
+            print(f"You have a {playerHand.handValue}")
+            hitStay = input("Would you like to [h]it or [s]tay?: ")
+        
+            if hitStay == 'h':
+                playerHand.addCard(deck.dealCard())
+                print(f"you were dealt a {playerHand.hand[-1]}")
+
+                if playerHand.handValue > 21:
+                    print(f"Your score is {playerHand.handValue}")
+                    print("You Lose Loser")
+                    playerMoney.subtractMoola(playerBet)
+                    break
+                continue
+            else:
+                break
+
+
+        if playerHand.handValue < 21:
+            while True:
+                print(f"Dealer hand is {dealerHand.hand}")
+                print(f"Dealer score is {dealerHand.handValue}")
+
+                if dealerHand.handValue == 21:
+                    print("Jack Black has BlackJack")
+                    playerMoney.subtractMoola(playerBet)
+                    break
+
+                while dealerHand.handValue < playerHand.handValue:
+
+                    if dealerHand.handValue < 16:
+                        dealerHand.addCard(deck.dealCard())
+                        print(f"Dealer was dealt a {dealerHand.hand[-1]}")
+
+                        if dealerHand.handValue > 21:
+                            print(f"Dealer score is {dealerHand.handValue}")
+                            print("You Win, Dealer Sucks!")
+                            playerMoney.addMoola(playerBet)
+                            break
+                        continue
+                    else:
+                        print("Player wins")
+                        playerMoney.addMoola(playerBet)
+                        break
+
+                if dealerHand.handValue == 21:
+                    print("Jack Black has BlackJack")
+                    playerMoney.subtractMoola(playerBet)
+                    break
+
+                if dealerHand.handValue > playerHand.handValue and dealerHand.handValue <= 21:
+                    print("Dealers wins")
+                    playerMoney.subtractMoola(playerBet)
+                    break
+                break
+        
 
 #ourDeck = Deck()
+jackblacksblackjack()
 #ourDeck.shuffleDeck()
 #ourCard = ourDeck.dealCard()
 #us = Player()
@@ -95,8 +211,6 @@ class Moola:
 #print(us.addCard(ourCard))
 #print(us.addCard(ourCard))
 #print(us.addCard(ourCard))
-bank = Moola(5500)
 
-print(bank.subtractMoola())
 
 
