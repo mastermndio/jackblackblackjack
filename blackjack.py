@@ -193,24 +193,9 @@ def jackblacksblackjack():
                 break
         
 
-#ourDeck = Deck()
+
 jackblacksblackjack()
-#ourDeck.shuffleDeck()
-#ourCard = ourDeck.dealCard()
-#us = Player()
-#print(us.addCard(ourCard))
-#ourCard = ourDeck.dealCard()
-#print(us.addCard(ourCard))
-#ourCard = ourDeck.dealCard()
-#print(us.addCard(ourCard))
-#ourCard = ourDeck.dealCard()
-#ourCard = ourDeck.dealCard()
-#ourCard = ourDeck.dealCard()
-#ourCard = ourDeck.dealCard()
-#print(us.addCard(ourCard))
-#print(us.addCard(ourCard))
-#print(us.addCard(ourCard))
-#print(us.addCard(ourCard))
 
 
+}
 

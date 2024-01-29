@@ -12,9 +12,9 @@
 - [X] Cards need to be dealt from the deck
 - [X] The players need to be able to have a hand of dealt cards
 - [X] The players need to have some moola
-- [ ] The player needs to be able to bet moola 
-- [ ] We need to keep track of moola wins and losses
-- [ ] We need to implement all of the logic of "21 or Bust" aka blackjack
+- [X] The player needs to be able to bet moola 
+- [X] We need to keep track of moola wins and losses
+- [X] We need to implement all of the logic of "21 or Bust" aka blackjack
 
 
 
