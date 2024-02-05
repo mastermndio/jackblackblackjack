@@ -16,5 +16,13 @@
 - [X] We need to keep track of moola wins and losses
 - [X] We need to implement all of the logic of "21 or Bust" aka blackjack
 
+# HOW TO RUN
+## Prereqs
+- [ ] Python3
+- [ ] Docker
+
+```bash
+python3 blackjack.py
+```
 
 

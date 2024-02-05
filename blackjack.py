@@ -195,7 +195,3 @@ def jackblacksblackjack():
 
 
 jackblacksblackjack()
-
-
-}
-
